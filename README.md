@@ -1,6 +1,6 @@
 Bandits Experiment
 
-> Eric Schulz. May 2022.
+> Eric Schulz. May 2022. (Modified by Pulkit Goyal.)
 > A simple bandit experiment. Code is legacy. Please forgive.
 
 ##  Current experiment

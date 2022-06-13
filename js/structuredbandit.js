@@ -130,7 +130,7 @@ function myNorm() {
 //Instruction Check
 ////////////////////////////////////////////////////////////////////////
 var turkid=0;
-function gettingstarted()
+function getting_started()
 {
   turkid=document.getElementById("mturk").value;
   if (turkid=="WorkerID")
@@ -142,7 +142,7 @@ function gettingstarted()
   	}
 }
 
-function instructioncheck()
+function instruction_check()
 {
     //check if correct answers are provided
     if (document.getElementById('icheck1').checked) {var ch1=1}
@@ -391,14 +391,14 @@ function nextblock()
 //Demographics & Finish
 ////////////////////////////////////////////////////////////////////////
 //sets the selected gender
-function setgender(x)
+function set_gender(x)
 {
   gender=x;
   return(gender)
 }
 
 //sets the selected age
-function setage(x)
+function set_age(x)
 {
   age=x;
   return(age)
@@ -421,7 +421,7 @@ function saveText(text, filename){
   a.click()
 }
 
-function mysubmit()
+function my_submit()
 {
   //change page
   clickStart('page9','page10');

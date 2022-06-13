@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Structural Bandit Experiment">
-    <meta name="author" content="Eric Schulz">
+    <meta name="author" content="Pulkit Goyal">
     <meta charset="utf-8">
     <title>Decision making experiment</title>
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
@@ -18,12 +18,12 @@
 	   <!--1st page contains Welcome-->   
 	   <div id="page1" style="display:block">
 	     <h3><font FACE="bookman">Decision making experiment</font></h3>
-	     <p> This study is part of a research project conducted by Eric Schulz. </p>
-	     <p> If you have any questions, please contact: <strong>eric.schulz@tue.mpg.de</strong></p>
+	     <p> This study is part of a research project conducted by Eric Schulz. </br> This particular version is modified by Pulkit Goyal as part of an assignment submission for the course Computational Cognitive Science at the University of Tübingen. </p>
+	     <p> If you have any questions, please contact: <strong>pulkit.goyal@student.uni-tuebingen.de</strong></p>
 	     <button type="button" name="button"; onclick="clickStart('page1','page2')"; >Continue</button>
 	   </div>
 
-		<!--2nd page contains Concent form-->
+		<!--2nd page contains Consent form-->
 	   <div id="page2" style="display:none">
 	   		<br> 
 		   	<h4><center>Statement of Informed Consent</center></h4>
@@ -47,8 +47,8 @@
 		<div id="page3" style="display:none">
 		   <br>
 		   <b> Please enter your Mechanical Turk Worker ID (required for bonus payment):</b><br>
-		   <input type="text" id="mturk" maxlength="20" value="WorkerID"><br><br>
-		   <button type="button" name="button"; onclick="gettingstarted()"; >Go to next page</button>
+		   <input type="text" id="mturk" maxlength="20" placeholder="WorkerID"><br><br>
+		   <button type="button" name="button"; onclick="getting_started()"; >Go to next page</button>
 		</div>
 
 
@@ -62,7 +62,7 @@
 			    <li>Which button you choose is up to you and each of them is worth a different number of points</li>
 			    <li>Each button you can press is shown on the screen with a white square and the associated key on the keyboard.</li> 
 			    <li>You can choose an option by pressing the corresponding letter/symbol on your keyboard.</li>
-			    <li>When you have made a choice, the ammount of points you won will appear on the screen.</li>
+			    <li>When you have made a choice, the amount of points you won will appear on the screen.</li>
 			 </ul>
 		   <br>			   
 		   <button type="button" name="button"; onclick="clickStart('page4','page5')"; >Go to next page</button>
@@ -73,7 +73,7 @@
 			 <br>
 			  <p><b>Find the good options:</b></p>
 				 <ul>
-				    <li>This studys consists of 5 rounds in total. On each round, you will have 5 consecutive chances to choose from the provided options.</li>
+				    <li>This study consists of 5 rounds in total. On each round, you will have 5 consecutive chances to choose from the provided options.</li>
 				    <li>On every round, your goal earn as many points as possible by finding the most valuable option.</li>
 				    <li>After each round, the game resets and the point-values for each choice may change for the next round.</li> 
 				    <li>You can choose an option by pressing the corresponding letter/symbol on your keyboard (see screenshot below).</li>
@@ -133,7 +133,7 @@
 		    </fieldset>
 		    <br><br><br><br>
 		    <p>You will only be directed to the next page if you manage to answer all of the questions correctly.</p>
-		    <button type="button" name="button"; onclick="instructioncheck()"; >Check answers</button>  
+		    <button type="button" name="button"; onclick="instruction_check()"; >Check answers</button>  
 		</div>
 
 		<!--8th page contains task-->
@@ -173,15 +173,15 @@
 			<fieldset>
 				<div style="float:left;width:400px;margin:5px">
 					How old are you?<br>
-					<input id="age" type="radio" name="age" onclick="setage(20)" >18-25<br>
-					<input id="age" type="radio" name="age" onclick="setage(30)" >26-35<br>
-					<input id="age" type="radio" name="age" onclick="setage(40)" >36-50<br>
-					<input id="age" type="radio" name="age" onclick="setage(50)" >above 50<br>
+					<input id="age" type="radio" name="age" onclick="set_age(20)" >18-25<br>
+					<input id="age" type="radio" name="age" onclick="set_age(30)" >26-35<br>
+					<input id="age" type="radio" name="age" onclick="set_age(40)" >36-50<br>
+					<input id="age" type="radio" name="age" onclick="set_age(50)" >above 50<br>
 				</div>
 				<div style="float:left;width:400px;margin:5px">
 					What's your gender?<br>
-					<input id="gender" type="radio" name="gender" onclick="setgender(0)" >Female<br>
-					<input id="gender" type="radio" name="gender" onclick="setgender(1)" >Male<br>
+					<input id="gender" type="radio" name="gender" onclick="set_gender(0)" >Female<br>
+					<input id="gender" type="radio" name="gender" onclick="set_gender(1)" >Male<br>
 				</div>
 				<div style="float:left;width:400px;margin:5px">Handedness?<br>
 					<input type="radio" name="handed" value="1" >Right<br>
@@ -189,7 +189,7 @@
 				</div>
 			</fieldset>
 			<div style="width:50px;margin:0 auto">
-				<button type="button" name="button"; onclick="mysubmit()"; >Done</button>
+				<button type="button" name="button"; onclick="my_submit()"; >Done</button>
 			</div>
 		</div>
 
@@ -199,8 +199,8 @@
 		   <div id="result"></div><br>
 		   <div id="money"></div><br>
 		   <p>Thank you very much for participating in our study.</p>
-		   <p>Your Mechanical Turk Password is:<br> <b>banditsbandits</b></p><br>
-		   <p>In case you have any questions, please contact us via <br> <b>eric.schulz@tue.mpg.de</b></p>
+		   <p>Your Mechanical Turk Password is:<br> <b>bandits</b></p><br>
+		   <p>In case you have any questions, please contact us via <br> <b>pulkit.goyal@student.uni-tuebingen.de</b></p>
 		</div>
 	</div>
     <script src="js/structuredbandit.js" charset="utf-8"></script>
