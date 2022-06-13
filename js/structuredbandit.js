@@ -9,8 +9,8 @@
 ////////////////////////////////////////////////////////////////////////
 
 //data storage ref
-var n_trials = 2,//number of trials
-	n_blocks = 2,//number of blocks
+var n_trials = 10,//number of trials
+	n_blocks = 10,//number of blocks
 	n_arms = 2,//number of blocks
 	trial = 0,//trial counter
 	block = 0,//block counter
@@ -138,6 +138,7 @@ function instruction_check() {
 	if (checksum === 3) {
 		//if correct, continue
 		begin_trial();
+		change('remain', 'Number of trials left: ' + n_trials);
 		clickStart('page7', 'page8');
 		//alert
 		alert('Great, you have answered all of the questions correctly. The study will now start.');
@@ -209,18 +210,23 @@ function my_func(inp) {
 	b2 = letter + 'J' + p_specs + borders[1];
 	//draw the option with their letters, now the chosen one has a thicker frame
 	draw_letters();
-	//show rounded value
-	var out_show = toFixed(out, 1);
 	//display on screen
-	change('outcome', "Outcome: " + out_show);
+	change('outcome', "Outcome: " + toFixed(out, 1));
+	//track total score
+	total_score = total_score + out;
+	change('score', 'Total Score: ' + toFixed(total_score, 1));
+	//update remaining trials indicator
+	change('remain', 'Number of trials left: ' + (n_trials - trial - 1));
 	//set a time out, after 2 seconds start the next trial
 	setTimeout(function () { next_trial(); }, 2000);
 }
 
 
 function next_trial() {
+	//increment trial number
+	trial++;
 	//check if trials are smaller than the maximum trial number
-	if (trial + 1 < n_trials) {
+	if (trial < n_trials) {
 		//set the borders back to normal
 		borders = ['border="1">', 'border="1">'];
 		//change the letters again
@@ -230,28 +236,20 @@ function next_trial() {
 		draw_letters();
 		//begin new trial
 		begin_trial();
-		//track total score
-		total_score = total_score + out;
-		//to be inserted total score
-		var inserts = 'Total Score: ' + toFixed(total_score, 1);
-		//show total score on screen
-		change('score', inserts);
-		//increment trial number
-		trial++;
-		//to be inserted number of trials left
-		var insert_ = 'Number of trials left: ' + (n_trials - trial);
-		//show on screen
-		change('remain', insert_);
 		//change outcome back to please choose an option
 		change('outcome', "Please choose an option!");
 	}
 	//if trial numbers exceed the total number, check if more blocks are available
-	else if (trial + 1 == n_trials & block + 1 < n_blocks) {
+	else if (trial == n_trials & block + 1 < n_blocks) {
+		//update overall score
+		overall_score = overall_score + total_score;
 		//tell them that this block is over
 		alert("Block " + (block + 1) + " out of " + n_blocks + " is over. Please press return to continue with the next block.")
 		//start next block
 		next_block();
 	} else {
+		//update overall score
+		overall_score = overall_score + total_score;
 		//Otherwise --if blocks exceed total block number, then the experiment is over
 		alert("The experiment is over. You will now be directed to the next page.")
 		clickStart('page8', 'page9');
@@ -260,8 +258,6 @@ function next_trial() {
 
 //function to initialize next block
 function next_block() {
-	//update overall score
-	overall_score = overall_score + total_score;
 	//borders back to normal
 	borders = ['border="1">', 'border="1">'];
 	//new letters and boxes
@@ -278,13 +274,9 @@ function next_block() {
 	//total score back to 0
 	total_score = 0;
 	//insert total score
-	var inserts = 'Total Score: ' + toFixed(total_score, 1);
-	//put on screen
-	change('score', inserts);
+	change('score', 'Total Score: ' + toFixed(total_score, 1));
 	//number of trials left
-	var insert_ = 'Number of trials left: ' + (n_trials - trial);
-	//on screen
-	change('remain', insert_);
+	change('remain', 'Number of trials left: ' + (n_trials - trial));
 	//ask them to choose an outcome
 	change('outcome', "Please choose an option!");
 }
@@ -328,6 +320,7 @@ function my_submit() {
 	//show score and money
 	change('result', present_total);
 	change('money', present_money);
+	change('password', `<b>bandits${turkID}</b>`);
 	//all data to save
 	saveDataArray = {
 		'xcollect': x_collect,
@@ -336,8 +329,7 @@ function my_submit() {
 		'money': money,
 		'age': age,
 		'instcounter': inst_counter,
-		'turkid': turkID,
-
+		'turkid': turkID
 	};
 	//save data
 	saveText(JSON.stringify(saveDataArray), 'banditData.' + turkID + '.JSON');
