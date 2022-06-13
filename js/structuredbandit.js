@@ -9,8 +9,8 @@
 ////////////////////////////////////////////////////////////////////////
 
 //data storage ref
-var n_trials = 10,//number of trials
-	n_blocks = 10,//number of blocks
+var n_trials = 2,//number of trials
+	n_blocks = 2,//number of blocks
 	n_arms = 2,//number of blocks
 	trial = 0,//trial counter
 	block = 0,//block counter
@@ -28,7 +28,9 @@ var n_trials = 10,//number of trials
 	y = [],//underlying outcome
 	timeInMs = 0,//reaction time
 	letter = '<input type="image" src="letters/',//the letter
-	p_specs = '.png"  width="120" height="120"'//size of box
+	p_specs = '.png"  width="120" height="120"',//size of box
+	mu = 25,//mean of the normal distribution used in reward
+	sigma = 5;//std of the normal distribution used in reward
 
 //borders for selections
 var borders = ['border="1">', 'border="1">'];
@@ -164,13 +166,13 @@ function begin_trial() {
 		if (e.which == 102 & return_pressed == 0) {
 			return_pressed = 1;
 			timeInMs = Date.now() - timeInMs;
-			my_func(3);
+			my_func(0);
 		}
 		//same spiel if key equals J
 		if (e.which == 106 & return_pressed == 0) {
 			return_pressed = 1;
 			timeInMs = Date.now() - timeInMs;
-			my_func(4);
+			my_func(1);
 		}
 	});
 }
@@ -191,7 +193,7 @@ function my_func(inp) {
 		//if the chosen location matches possible location
 		if (inp == i) {
 			//return always 20
-			out = 20;
+			out = sigma * myNorm() + mu;
 			//collect corresponding location, it's only important for R to JS differences        
 		}
 	}
@@ -246,7 +248,7 @@ function next_trial() {
 	//if trial numbers exceed the total number, check if more blocks are available
 	else if (trial + 1 == n_trials & block + 1 < n_blocks) {
 		//tell them that this block is over
-		alert("Block " + (block + 1) + " out of 10 is over. Please press return to continue with the next block.")
+		alert("Block " + (block + 1) + " out of " + n_blocks + " is over. Please press return to continue with the next block.")
 		//start next block
 		next_block();
 	} else {
@@ -328,13 +330,13 @@ function my_submit() {
 	change('money', present_money);
 	//all data to save
 	saveDataArray = {
-		'x_collect': x_collect,
-		'y_collect': y_collect,
-		'time_collect': time_collect,
+		'xcollect': x_collect,
+		'ycollect': y_collect,
+		'timecollect': time_collect,
 		'money': money,
 		'age': age,
-		'inst_counter': inst_counter,
-		'turkID': turkID,
+		'instcounter': inst_counter,
+		'turkid': turkID,
 
 	};
 	//save data
